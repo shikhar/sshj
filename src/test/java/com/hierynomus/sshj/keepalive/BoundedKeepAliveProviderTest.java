@@ -5,6 +5,7 @@ import net.schmizz.keepalive.BoundedKeepAliveProvider;
 import net.schmizz.keepalive.KeepAlive;
 import net.schmizz.sshj.DefaultConfig;
 import net.schmizz.sshj.SSHClient;
+import net.schmizz.sshj.common.LoggerFactory;
 import net.schmizz.sshj.connection.ConnectionException;
 import net.schmizz.sshj.connection.ConnectionImpl;
 import net.schmizz.sshj.transport.TransportException;
@@ -45,7 +46,7 @@ public class BoundedKeepAliveProviderTest {
     @BeforeAll
     static void setUpBeforeClass() throws Exception {
 
-        kp = new BoundedKeepAliveProvider(defaultConfig, 2) {
+        kp = new BoundedKeepAliveProvider(LoggerFactory.DEFAULT, 2) {
             @Override
             public KeepAlive provide(ConnectionImpl connection) {
                 return new EventuallyFailKeepAlive(connection, "test") {
